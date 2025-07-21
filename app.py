@@ -18,9 +18,16 @@ schools.columns = schools.columns.str.strip()
 site_list = schools["LABEL"].sort_values().tolist()
 site_selected = st.selectbox("Select Campus", site_list)
 
+# track whether user generated a map so the display persists after reruns
+if "map_ready" not in st.session_state:
+    st.session_state["map_ready"] = False
+
 radius = st.slider("Radius around school (meters)", 100, 1000, 300, 50)
 
 if st.button("Generate Map"):
+    st.session_state["map_ready"] = True
+
+if st.session_state["map_ready"]:
     with st.spinner("Generating map…"):
         row = schools[schools["LABEL"] == site_selected].iloc[0]
         lon, lat = row["LON"], row["LAT"]
