@@ -4,3 +4,5 @@ matplotlib
 shapely
 prettymapp
 pandas
+folium
+streamlit-folium
